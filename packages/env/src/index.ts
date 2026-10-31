@@ -35,6 +35,7 @@ config({ path: envFilePath, quiet: true });
 
 const EnvVarsSchema = z.object({
   NODE_ENV: NodeEnvSchema,
+  WEB_EXT_START_URL: z.url(),
 });
 
 export const envVars = EnvVarsSchema.parse(process.env);

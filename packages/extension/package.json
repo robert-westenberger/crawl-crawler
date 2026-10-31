@@ -16,12 +16,12 @@
     "clean:output": "rimraf dist artifacts"
   },
   "dependencies": {
-    "@crawl/env": "workspace:*",
     "react": "catalog:",
     "react-dom": "catalog:",
     "webextension-polyfill": "catalog:"
   },
   "devDependencies": {
+    "@crawl/env": "workspace:*",
     "@crawl/tsconfig": "workspace:*",
     "@types/node": "catalog:",
     "@types/react": "catalog:",

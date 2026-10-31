@@ -13,8 +13,8 @@ const FIREFOX_GECKO_ID = "hello-world@example.com";
 const FIREFOX_STRICT_MIN_VERSION = "115.0";
 const WEB_EXT_TARGET_CHROMIUM = "chromium";
 const WEB_EXT_TARGET_FIREFOX_DESKTOP = "firefox-desktop";
-const WEB_EXT_START_URL = "about:blank";
 const WEB_EXT_CHROMIUM_PROFILE_DIR_NAME = ".webext-profile";
+const WEB_EXT_FIREFOX_PROFILE_DIR_NAME = ".webext-firefox-profile";
 const WEB_EXT_USER_DATA_DIR_FLAG_PREFIX = "--user-data-dir=";
 const WEB_EXT_NO_FIRST_RUN_FLAG = "--no-first-run";
 const WEB_EXT_NO_DEFAULT_BROWSER_CHECK_FLAG = "--no-default-browser-check";
@@ -110,6 +110,7 @@ const firefoxBinaryPath = resolveExistingBinary(
   FIREFOX_BINARY_CANDIDATES,
 );
 const chromiumProfile = path.resolve(packageDirectory, WEB_EXT_CHROMIUM_PROFILE_DIR_NAME);
+const firefoxProfile = path.resolve(packageDirectory, WEB_EXT_FIREFOX_PROFILE_DIR_NAME);
 
 export default defineConfig({
   plugins: [
@@ -129,11 +130,13 @@ export default defineConfig({
           targetBrowser === TARGET_BROWSER_FIREFOX
             ? WEB_EXT_TARGET_FIREFOX_DESKTOP
             : WEB_EXT_TARGET_CHROMIUM,
-        startUrl: WEB_EXT_START_URL,
+        startUrl: envVars.WEB_EXT_START_URL,
         chromiumBinary: chromiumBinaryPath,
         // web-ext-run reads `firefox`; newer typings also expose `firefoxBinary`.
         firefox: firefoxBinaryPath,
         firefoxBinary: firefoxBinaryPath,
+        profileCreateIfMissing: true,
+        keepProfileChanges: true,
         ...(targetBrowser === TARGET_BROWSER_CHROME
           ? {
               args: [
@@ -142,16 +145,13 @@ export default defineConfig({
                 WEB_EXT_NO_DEFAULT_BROWSER_CHECK_FLAG,
               ],
               chromiumProfile,
-              profileCreateIfMissing: true,
-              keepProfileChanges: true,
             }
-          : {}),
+          : {
+              firefoxProfile,
+            }),
       },
     }),
   ],
-  define: {
-    "import.meta.env.DUMMY_WIDGET_NAME": JSON.stringify(envVars.DUMMY_WIDGET_NAME),
-  },
   build: {
     target: BUILD_TARGET,
     minify: false,
