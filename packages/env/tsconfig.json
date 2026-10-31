@@ -1,0 +1,7 @@
+{
+  "extends": "@crawl/tsconfig/node-library.json",
+  "compilerOptions": {
+    "rootDir": "src"
+  },
+  "include": ["src"]
+}

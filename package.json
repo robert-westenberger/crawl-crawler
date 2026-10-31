@@ -1,0 +1,19 @@
+{
+  "name": "@crawl/root",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev:chromium": "pnpm --filter @crawl/extension dev:chromium",
+    "dev:firefox": "pnpm --filter @crawl/extension dev:firefox",
+    "build": "turbo run build",
+    "lint": "turbo run lint",
+    "test": "turbo run test",
+    "pipeline": "turbo run build lint test",
+    "package": "pnpm --filter @crawl/extension package",
+    "typecheck": "pnpm --filter @crawl/extension typecheck"
+  },
+  "devDependencies": {
+    "turbo": "catalog:"
+  },
+  "packageManager": "pnpm@10.33.2+sha512.a90faf6feeab71ad6c6e57f94e0fe1a12f5dcc22cd754db40ae9593eb6a3e0b6b12e3540218bb37ae083404b1f2ce6db2a4121e979829b4aff94b99f49da1cf8"
+}

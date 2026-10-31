@@ -1,0 +1,38 @@
+{
+  "name": "@crawl/extension",
+  "private": true,
+  "version": "0.0.1",
+  "type": "module",
+  "scripts": {
+    "dev:chromium": "cross-env NODE_ENV=development TARGET_BROWSER=chrome vite",
+    "dev:firefox": "cross-env NODE_ENV=development TARGET_BROWSER=firefox vite",
+    "build:chromium": "cross-env NODE_ENV=development TARGET_BROWSER=chrome vite build --outDir dist/chromium",
+    "build:firefox": "cross-env NODE_ENV=development TARGET_BROWSER=firefox vite build --outDir dist/firefox",
+    "build": "pnpm run build:chromium && pnpm run build:firefox",
+    "package:chromium": "pnpm run build:chromium && web-ext build --source-dir dist/chromium --artifacts-dir artifacts --filename hello-world-chromium.zip --overwrite-dest",
+    "package:firefox": "pnpm run build:firefox && web-ext build --source-dir dist/firefox --artifacts-dir artifacts --filename hello-world-firefox.zip --overwrite-dest",
+    "package": "pnpm run package:chromium && pnpm run package:firefox",
+    "typecheck": "tsc --noEmit -p tsconfig.json && tsc --noEmit -p tsconfig.node.json",
+    "clean:output": "rimraf dist artifacts"
+  },
+  "dependencies": {
+    "@crawl/env": "workspace:*",
+    "react": "catalog:",
+    "react-dom": "catalog:",
+    "webextension-polyfill": "catalog:"
+  },
+  "devDependencies": {
+    "@crawl/tsconfig": "workspace:*",
+    "@types/node": "catalog:",
+    "@types/react": "catalog:",
+    "@types/react-dom": "catalog:",
+    "@types/webextension-polyfill": "catalog:",
+    "@vitejs/plugin-react": "catalog:",
+    "cross-env": "catalog:",
+    "rimraf": "catalog:",
+    "typescript": "catalog:",
+    "vite": "catalog:",
+    "vite-plugin-web-extension": "catalog:",
+    "web-ext": "catalog:"
+  }
+}
