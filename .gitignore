@@ -6,3 +6,11 @@
 *.sublime-workspace
 *.sublime-project
 games.d/
+node_modules
+.idea
+dist
+build
+.turbo
+.env
+.env*
+logs
